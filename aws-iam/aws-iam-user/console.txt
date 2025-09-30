@@ -1,0 +1,60 @@
+How to cretae the user from the AWS managment console:>
+
+1.Log into the aws management console 
+  >>as root or any valid IAM user
+
+                       SPECIFY USER DETAILS
+2.In the search bar, search for the IAM SERVICES
+   >>there in the left side go for user
+     >>and click on add user
+
+3.And Enter the name
+
+                      HERE WE HAVE TWO OPTION 
+4..Give the user access to the AWS management console
+   >>i want to create an IAM user
+      >>Auto generated passwd [ you can view the password once you create the user]
+     >>Or Custom passwd
+*After selecting the option you will also have the option 
+   >>user must create  a new password  at next sign-in [Recommnaded]
+
+                          SET PERMISSION
+
+5. here you have there option
+  >>Add user to the group [the user will get the permission that are applied at                            the group level]
+  >>Copy the permission   [copy all group membership .attacch managed policies a                            and inline policies from an existing user]
+  >>Attach the policies   [Attacch the managed policies directly to the user]
+    directley
+
+next you can select any one option 
+                   
+                          REVIEW AND CREATE
+                 
+6.Copy the user-name and passwd or download the .csv file
+
+-------------------------------------------------------------------------------
+                            PROGRAMATIC ACCESS
+
+1.Click on the create user
+
+2.Enter the user name  [ex :amith]
+
+                           SET THE PERMISSIONS
+
+3. here you have there option
+  >>Add user to the group [the user will get the permission that are applied at                            the group level]
+  >>Copy the permission   [copy all group membership .attacch managed policies a                            and inline policies from an existing user]
+  >>Attach the policies   [Attacch the managed policies directly to the user]
+    directley
+
+next you can select any one option
+
+                             REVIEW AND CREATE
+
+4.Create the user
+ 
+
+After the creation
+------------------
+>>now click on the user to view  where you can create the access key 
+ 
