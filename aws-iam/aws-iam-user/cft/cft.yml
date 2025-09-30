@@ -1,0 +1,56 @@
+AWSTemplateFormateVersion: "2010-09-09"
+Description: "create an iam user with console and programatic access"
+
+Parameters:
+  UserName:
+    Type: string
+    default: dev-user
+    Description: "iam user name to create"
+
+  UserPassword:
+    Type: string
+    NoEcho: true
+    MinLength: 8
+    Description: "initial console password for the iam user "
+
+
+Resources:
+  User:
+    Type: AWS::IAM::USER
+    Properties:
+      UserName: !Ref UserName
+      LoginProfile:
+        password: !Ref UserPassword
+        PasswordResetRequired: true
+      Policies:
+        -PolicyName: S3ReadAccess
+         PolicyDocument: 
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - s3:Listobject
+                  - s3:Getobject
+                Resources: "*"
+  UserAccessKey:
+    Type: AWS::IAM::AccessKey
+    Properties:
+      UserName: !Ref User
+
+  UserSecret:
+    Properties:
+      Name: !Sub "${UserName}-AccesskeySecret"
+      Description: "Access key and secret for IAM user ${UserName}"
+      SecretString: !Sub |
+      {
+          "AccessKeyId":"${UserAccessKey}",
+          "SecretAccessKey":"${UserAccesskey.SecretAccessKey}"
+      }
+Output:
+  ConsoleLoginUrl:
+    Description: "aws console sign-in URL"
+    value: !Sub "https://console.aws.amazon.com/"
+
+  AccesKeyId:
+    Description: "Access key id for programatic access (secret Accesskey is not output for security reason)"
+    value: !Ref UserAccessKey
