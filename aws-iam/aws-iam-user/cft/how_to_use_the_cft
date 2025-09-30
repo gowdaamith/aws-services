@@ -1,0 +1,88 @@
+1. first store the file in .yml or .yaml extention
+
+2.choose how to deploy
+   you can deploy through
+   1.AWS Managment console
+   2.AWS CLI
+
+optoin AWS Managment console:>
+
+1.log in to AWS console 
+  >>Navigate to cloud formation template
+2.Click Create stack
+  >>choose a existing template
+  >>build  form infrastructure composer
+
+>>>>chose a existing template
+  either chose form the   
+ >>Amazon s3 through URL
+ >>Upload the template file
+ >>sync from the git
+
+>>>>Build from Infrastructure composer
+ >>create in inifraastructure composer
+    >>here you can either go through canvas or tempalte 
+the code will be saved in the s3 if you lost the track you can go there and use it there
+
+                           SPECIFY STACK DETAILS
+3.Provide the stack details
+
+>>enter the stack name 
+
+Then it will ask for the parameters specified in the code:>
+  >>provide the parameter and click next
+   
+
+                        CONFIGURE STACK OPTIONS
+
+>>It will ask for the tags which is optional
+>>It will ask for the Permission 
+  where we need to choose  a IAM ROLE for cloud formation to use all operation 
+  performed on the stack
+
+4.Stack failur options
+
+>>Behaviour on provisionning failure
+  >>roll back all stack resources
+  >>preserve successfully provisioned  resources
+
+delete newly created resources during a rollback
+ >>use  deletoin policy
+ >> delete all newly created resources
+
+some additional setting like:
+*stack policy
+*rollback configuration
+*notification options
+*stack creation options
+
+
+
+                               REVIEWW  AND CREATE
+-------------------------------------------------------------------------------
+
+AWS CLI
+1.Make sure AWS CLI is installed and configured 
+2.Run the following command  to create the stack
+
+aws cloudformation create-stack \
+  -- stack-name dev-iam-user-stack \
+  -- template-body file://create-iam-user.yml \
+  --parameters parameterKey=Username.ParameterValue=amithe \
+             parameterKey=Userpasswd.ParameterValue=dfsasghgdjhkj \  
+  --capabilities CAPABILITY_NAMED_IAM
+
+--capabilities CAPABILITY_NAMED_IAM
+ IS REquired because you're creating IAM  resource
+
+to check the status use
+aws cloudformation describe-stacks --stack-name dev-iam-user-stack
+
+--------------------------------------------------------------------------------
+aws secretsmanager get-secret-value \
+ --secret-id dev-user-Accesskeysecret \
+ --query 'secretstring' \
+ -- output text 
+
+this outputs the json with access key an secreat accesskey
+
