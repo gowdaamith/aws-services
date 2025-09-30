@@ -57,4 +57,16 @@ next you can select any one option
 After the creation
 ------------------
 >>now click on the user to view  where you can create the access key 
- 
+
+
+------------------------------------------------------------------------------
+IF YOU want to give a person who has "disable console or programatic acccess
+
+Go to the user list in IAM
+  >> Click on the user name you want to enable 
+     >>Go  to the Security credentials
+      >>where you can enable either the cosole or programmatic access which ever        being disabled
+     >>here you can also enable the MFA
+     >>create the access key
+
+
