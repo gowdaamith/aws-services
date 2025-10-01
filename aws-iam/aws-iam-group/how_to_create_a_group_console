@@ -1,0 +1,36 @@
+                                GROUP
+
+1.First login to the AWS console 
+  >>In the search bar,type IAM  and open the IAM services
+
+2.Here on the left side go to the" user group "
+  >>Click Create
+
+3.Enter the group Name [ex: Developer.or admins]
+ 
+4.(Optional) Attch policies .like **AmazonReadOnlyAccess,AdministratorAccess
+  **All the user in this group will  inherit theses permission 
+  
+5.Click Create the group`
+
+                        HOW TO ADD USER TO THE GROUP
+
+1.Go back to the USER Group >> click on the group you created 
+
+2.In the group details ,select  the user tab >>>click add user to group
+
+3.Select the IAM USERS you want to add 
+
+4.click add users
+
+                     HOW TO ADD POLICIES TO THE GROUP
+
+1.Go back to the USER Group >> click on the group you created
+
+2.In the group details ,select the permission tab >> click on add permission 
+  you wiil  get two option   **Attach policies      [attach existing policies]
+                             **Create inline policy [can create policy]
+
+3.Here you can also remove the policies
+
+
