@@ -1,0 +1,73 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "Create the iam group ,user and attach the permission to the group"
+
+Parameters:
+  GroupName:
+    Description: "enter the name of  of the group"
+    Type: string
+    default: group1
+
+  UserName:
+    Description: "enter the name of the user"
+    Type: string
+    default: user1
+
+  policyArn:
+    Description: "Managed policyArn to attach to the group"
+    Type: string
+    default: arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess
+
+Resources:
+  #create the iam group
+  Group:
+    Type: AWS:IAM::Group
+    Properties:
+      GroupName: !Ref GroupName
+
+  GroupPolicyAttachment:
+    Type: AWS::IAM::GroupPolicyAttachment
+    Properties:
+      GroupName: !Ref GroupName
+      policyArn: !Ref policyArn
+
+  SecretManager:
+    Type: AWS::SecretManager::Secret
+    Properties:
+      Name: !Sub "${UserName}-password"
+      SecretStringTemplate: "{}"
+      GenerateStringKey: password
+      passwordLength: 16
+      ExcludePuntuation: true
+
+  User:
+    Type: AWS::IAM::User
+    Properties:
+      UserName: !Ref UserName
+      LoginProfile:
+        password: !JOIN ["",[!GetAtt SecretManager.SecretString]]
+        PasswordResetRequired: true
+
+  AddUserToGroup:
+    Type: AWS::IAM::UserToGroupAddition
+    Properties:
+      GroupName: !Ref Group
+      UserName: 
+        - !Ref User
+
+  AccessKey:
+    Type: AWS::IAM::AccessKey
+    Properties:
+      UserName: !Ref User
+
+Outputs:
+  ConsoleLoginURL:
+    Description: "aws console login ConsoleLoginURL"
+    value: "https://console.aws.amazon.com/"
+
+  PassowordSecretARN:
+    Description: "secreat arn store the auto generated }-password"
+    value: !Ref SecretManager
+
+  AccessKeyId:
+    Description:"Accesskey id for programatic access"
+    Value: !Ref AccessKey
