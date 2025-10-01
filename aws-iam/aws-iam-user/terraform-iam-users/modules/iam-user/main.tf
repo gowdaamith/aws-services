@@ -5,8 +5,6 @@ resource "aws_iam_user" "new_user" {
 resource "aws_iam_user_login_profile" "user_login_profile" {
     count = var.console_login ? 1 : 0
     user =var.user_name
-    password=var.password
-    password_length = 8
     password_reset_required = true
 }
 
